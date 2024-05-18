@@ -30,5 +30,5 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn sonar:sonar \
           -Dsonar.projectKey=OrganizationTesteGuilherme_Spring-Boot-Example_92688599-557c-49d6-8da3-7377540a54be \
-          -Dsonar.host.url=thttp://localhost:9000 \
+          -Dsonar.host.url=https://8156-177-1-34-163.ngrok-free.app \
           -Dsonar.login=${{ secrets.SONAR_TOKEN }}
