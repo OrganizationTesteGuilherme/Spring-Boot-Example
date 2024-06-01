@@ -11,6 +11,6 @@ jobs:
       - uses: actions/checkout@v2
       - uses: dbelyaev/action-checkstyle@master
         with:
-          github_token: ${{ secrets.CHECKSTYLE_TOKEN }}
+          github_token: ${{ secrets.TOKEN_GITHUB_WORKFLOW }}
           reporter: github-pr-review
           level: warning
