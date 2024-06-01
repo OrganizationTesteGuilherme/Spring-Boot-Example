@@ -5,6 +5,9 @@ on:
     branches:
       - master
 
+permissions:
+  contents: write  # Permissão necessária para acionar workflows
+
 jobs:
   trigger_sonarqube:
     runs-on: ubuntu-latest
@@ -12,6 +15,7 @@ jobs:
       - name: Trigger SonarQube Workflow
         uses: actions/github-script@v4
         with:
+          github-token: ${{ secrets.TOKEN_GITHUB_WORKFLOW }}
           script: |
             const result = await github.actions.createWorkflowDispatch({
               owner: context.repo.owner,
@@ -28,6 +32,7 @@ jobs:
       - name: Trigger Checkstyle Workflow
         uses: actions/github-script@v4
         with:
+          github-token: ${{ secrets.TOKEN_GITHUB_WORKFLOW }}
           script: |
             const result = await github.actions.createWorkflowDispatch({
               owner: context.repo.owner,
