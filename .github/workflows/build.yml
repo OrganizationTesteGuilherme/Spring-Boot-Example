@@ -1,0 +1,38 @@
+name: Build Pipeline
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  trigger_sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger SonarQube Workflow
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const result = await github.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'sonarqube.yml',
+              ref: context.ref,
+            });
+            console.log(result);
+
+  trigger_checkstyle:
+    runs-on: ubuntu-latest
+    needs: trigger_sonarqube
+    steps:
+      - name: Trigger Checkstyle Workflow
+        uses: actions/github-script@v4
+        with:
+          script: |
+            const result = await github.actions.createWorkflowDispatch({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              workflow_id: 'checkstyle.yml',
+              ref: context.ref,
+            });
+            console.log(result);
